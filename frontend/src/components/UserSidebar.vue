@@ -33,9 +33,9 @@
 
     <!-- Milo la mascotte -->
     <div class="rounded-3xl bg-[#f3f0ff] p-4">
-      <div class="rounded-2xl bg-purple-600 p-4 text-white shadow-sm">
-        <p class="font-extrabold">Coucou, moi c'est Milo !</p>
-        <p class="mt-0.5 text-sm font-semibold text-purple-100">
+      <div class="rounded-2xl bg-white p-4 shadow-sm">
+        <p class="font-extrabold text-purple-800">Coucou, moi c'est Milo !</p>
+        <p class="mt-0.5 text-sm font-semibold text-slate-600">
           Choisis un jeu et amuse-toi !
         </p>
       </div>

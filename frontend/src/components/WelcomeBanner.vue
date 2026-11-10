@@ -20,8 +20,8 @@
 
     <!-- Carte étoiles -->
     <div class="ml-auto rounded-2xl border border-purple-100 bg-white px-6 py-4 text-center shadow-sm">
-      <p class="flex items-center gap-2 text-lg font-extrabold text-purple-700">
-        <span class="text-xl leading-none">⭐</span> {{ progression.etoiles }} étoiles
+      <p class="flex items-center justify-center gap-2 text-lg font-extrabold text-purple-700">
+        <EtoileSvg :taille="20" /> {{ progression.etoiles }} étoiles
       </p>
       <p class="mt-1 text-sm font-semibold text-slate-500">
         Bravo, {{ progression.pseudo === 'Petit curieux' ? 'petit curieux' : progression.pseudo }} !
@@ -33,4 +33,5 @@
 <script setup>
 import { progression } from '../stores/progression'
 import { apparence } from '../stores/apparence'
+import EtoileSvg from './EtoileSvg.vue'
 </script>

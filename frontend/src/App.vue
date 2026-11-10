@@ -6,7 +6,7 @@
     <span class="deco-theme gauche" aria-hidden="true"></span>
     <span class="deco-theme droite" aria-hidden="true"></span>
 
-    <main class="relative z-[1] mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6">
+    <main class="relative z-[1] mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6">
       <RouterView />
     </main>
 

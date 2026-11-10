@@ -36,13 +36,7 @@
           :alt="jeu.title"
           class="h-20 w-20 rounded-2xl object-cover"
         />
-        <span
-          v-else
-          class="grid h-20 w-20 place-items-center rounded-2xl bg-white/70 text-4xl shadow-sm"
-          aria-hidden="true"
-        >
-          {{ jeu.emoji }}
-        </span>
+        <GameIllustration v-else :slug="jeu.slug" :taille="88" />
 
         <h3 class="mt-4 text-lg font-extrabold text-slate-800">{{ jeu.title }}</h3>
         <p class="mt-0.5 text-sm font-semibold text-slate-500">{{ jeu.description }}</p>
@@ -66,6 +60,7 @@
 import { computed, ref, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import API from '../api'
+import GameIllustration from './GameIllustration.vue'
 
 const filtres = [
   { cle: 'tous', label: 'Tous les jeux' },

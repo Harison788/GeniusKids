@@ -1,6 +1,6 @@
 <template>
   <header class="sticky top-0 z-30 border-b-2 border-indigo-600 bg-white">
-    <div class="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6">
+    <div class="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3 sm:px-6">
       <!-- Logo -->
       <RouterLink to="/" class="flex items-center gap-2.5">
         <span class="grid h-10 w-10 place-items-center rounded-xl bg-purple-100">
@@ -17,14 +17,14 @@
           exact-active-class="bg-purple-100 text-purple-700"
           :class="$route.path === '/' ? '' : 'text-slate-600 hover:bg-slate-100'"
         >
-          <span class="text-xs">🏠</span> Accueil
+          <IconeMaison /> Accueil
         </RouterLink>
         <a
           href="/#jeux"
           class="flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-bold text-slate-600 transition-colors hover:bg-slate-100"
           @click.prevent="allerAuxJeux"
         >
-          <span class="text-xs">🎮</span> Jeux
+          <IconeManette /> Jeux
         </a>
         <RouterLink
           to="/recompenses"
@@ -32,7 +32,7 @@
           active-class="bg-purple-100 text-purple-700"
           :class="$route.path === '/recompenses' ? '' : 'text-slate-600 hover:bg-slate-100'"
         >
-          <span class="text-xs">🏆</span> Récompenses
+          <IconeTrophee /> Récompenses
         </RouterLink>
       </nav>
 
@@ -40,10 +40,10 @@
       <div class="ml-auto flex items-center gap-3 sm:ml-0">
         <RouterLink
           to="/recompenses"
-          class="flex items-center gap-1.5 rounded-full border-2 border-amber-300 bg-amber-100 px-4 py-1.5 text-sm font-extrabold text-amber-800"
+          class="flex items-center gap-1.5 rounded-full border-2 border-amber-300 bg-amber-50 px-4 py-1.5 text-sm font-extrabold text-amber-700"
           title="Tes étoiles"
         >
-          <span class="text-base leading-none">⭐</span> {{ progression.etoiles }}
+          <EtoileSvg :taille="18" /> {{ progression.etoiles }}
         </RouterLink>
 
         <div class="relative">
@@ -55,7 +55,9 @@
               {{ apparence.avatar }}
             </span>
             Mon profil
-            <span class="text-[10px] text-slate-400">▾</span>
+            <svg width="10" height="10" viewBox="0 0 10 10" class="text-slate-400" fill="none">
+              <path d="M2 3.5 L5 6.5 L8 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </button>
 
           <div
@@ -89,6 +91,10 @@ import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import MascotMilo from './MascotMilo.vue'
 import ModalApparence from './ModalApparence.vue'
+import IconeMaison from './IconeMaison.vue'
+import IconeManette from './IconeManette.vue'
+import IconeTrophee from './IconeTrophee.vue'
+import EtoileSvg from './EtoileSvg.vue'
 import { progression } from '../stores/progression'
 import { apparence, themeActuel } from '../stores/apparence'
 
