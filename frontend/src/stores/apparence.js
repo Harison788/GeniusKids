@@ -51,14 +51,14 @@ export const AVATARS = [
   },
 ]
 
-/* --- Thèmes : le décor autour des jeux. Le blanc/violet est celui de départ. ---
-   `apercu` = petit dégradé fidèle au décor réel, montré dans la modale. */
+/* --- Thèmes : une vraie image plein écran + une vignette « autocollant ».
+     `image` : fichier dans frontend/public/themes/ ; `apercu` = secours. --- */
 export const THEMES = [
-  { id: 'violet', nom: 'Violet doux', emoji: '🟣', apercu: 'linear-gradient(160deg, #ffffff, #f3f0ff)' },
-  { id: 'fleurs', nom: 'Jardin de fleurs', emoji: '🌸', apercu: 'linear-gradient(160deg, #fff1f7, #fbcfe8)' },
-  { id: 'voitures', nom: 'Monde des voitures', emoji: '🚗', apercu: 'linear-gradient(160deg, #eaf2fd, #404a5a)' },
-  { id: 'espace', nom: 'Espace étoilé', emoji: '🚀', apercu: 'linear-gradient(160deg, #eef1ff, #a5b4fc)' },
-  { id: 'ocean', nom: 'Fond des océans', emoji: '🐠', apercu: 'linear-gradient(160deg, #e3f6fc, #99e3f5)' },
+  { id: 'violet', nom: 'Violet doux', image: '', apercu: 'linear-gradient(160deg, #ffffff, #f3f0ff)' },
+  { id: 'fleurs', nom: 'Jardin de fleurs', image: '/themes/fleurs.jpg', apercu: 'linear-gradient(160deg, #dff0fb, #cdebc4)' },
+  { id: 'voitures', nom: 'Monde des voitures', image: '/themes/voitures.jpg', apercu: 'linear-gradient(160deg, #cfe3cc, #a8c8a4)' },
+  { id: 'espace', nom: 'Espace étoilé', image: '/themes/espace.jpg', apercu: 'linear-gradient(160deg, #2b2364, #6b5db8)' },
+  { id: 'ocean', nom: 'Fond des océans', image: '/themes/ocean.jpg', apercu: 'linear-gradient(160deg, #bfe6f5, #f4ecd8)' },
 ]
 
 function vide() {

@@ -9,41 +9,44 @@
     class="overflow-visible"
   >
     <!-- Bras levé qui salue (3 petits doigts) -->
-    <path d="M75 55 C86 50 91 39 88 30" stroke="#8b5cf6" stroke-width="9" stroke-linecap="round" />
-    <g stroke="#8b5cf6" stroke-width="5" stroke-linecap="round">
-      <path d="M85 29 L83 20" />
-      <path d="M89 28 L91 19" />
-      <path d="M86 31 L93 26" />
+    <path d="M74 52 C85 47 90 36 87 27" stroke="#8b5cf6" stroke-width="10" stroke-linecap="round" />
+    <g stroke="#8b5cf6" stroke-width="5.5" stroke-linecap="round">
+      <path d="M84 26 L81 17" />
+      <path d="M88 25 L91 17" />
+      <path d="M85 28 L93 23" />
     </g>
-    <!-- Petit bras gauche -->
-    <path d="M24 66 C17 70 15 77 19 82" stroke="#8b5cf6" stroke-width="8" stroke-linecap="round" />
+    <!-- Petit bras gauche baissé -->
+    <path d="M22 68 C15 73 14 80 19 84" stroke="#8b5cf6" stroke-width="9" stroke-linecap="round" />
 
-    <!-- Corps dodu -->
-    <ellipse cx="50" cy="61" rx="31" ry="33" fill="#8b5cf6" />
+    <!-- Corps bien rond -->
+    <ellipse cx="50" cy="59" rx="30" ry="32" fill="#8b5cf6" />
 
-    <!-- Oreilles arrondies -->
-    <ellipse cx="33" cy="26" rx="7" ry="10" transform="rotate(-18 33 26)" fill="#7c3aed" />
-    <ellipse cx="67" cy="26" rx="7" ry="10" transform="rotate(18 67 26)" fill="#7c3aed" />
+    <!-- Ventre clair -->
+    <ellipse cx="50" cy="70" rx="20" ry="17" fill="#ece2ff" />
 
-    <!-- Grands yeux brillants -->
-    <ellipse cx="38" cy="48" rx="8.5" ry="9.5" fill="#ffffff" />
-    <ellipse cx="62" cy="48" rx="8.5" ry="9.5" fill="#ffffff" />
-    <circle cx="40" cy="51" r="4.2" fill="#2e1065" />
-    <circle cx="60" cy="51" r="4.2" fill="#2e1065" />
-    <circle cx="38.6" cy="49.4" r="1.4" fill="#ffffff" />
-    <circle cx="58.6" cy="49.4" r="1.4" fill="#ffffff" />
+    <!-- Oreilles -->
+    <ellipse cx="32" cy="26" rx="6.5" ry="9" transform="rotate(-16 32 26)" fill="#7c3aed" />
+    <ellipse cx="68" cy="26" rx="6.5" ry="9" transform="rotate(16 68 26)" fill="#7c3aed" />
 
-    <!-- Joues roses -->
-    <circle cx="29" cy="62" r="5" fill="#c4b5fd" opacity="0.75" />
-    <circle cx="71" cy="62" r="5" fill="#c4b5fd" opacity="0.75" />
+    <!-- Grands yeux sombres brillants (comme le prototype) -->
+    <ellipse cx="38.5" cy="47" rx="6.8" ry="8.2" fill="#3b2a6b" />
+    <ellipse cx="61.5" cy="47" rx="6.8" ry="8.2" fill="#3b2a6b" />
+    <circle cx="36.4" cy="44.4" r="2.2" fill="#ffffff" />
+    <circle cx="59.4" cy="44.4" r="2.2" fill="#ffffff" />
+    <circle cx="40.5" cy="49.5" r="1" fill="#b7a6f5" opacity="0.9" />
+    <circle cx="63.5" cy="49.5" r="1" fill="#b7a6f5" opacity="0.9" />
 
-    <!-- Bouche ouverte souriante avec langue -->
-    <path d="M42 65 Q50 77 58 65 Q50 69 42 65 Z" fill="#2e1065" />
-    <ellipse cx="50" cy="70.5" rx="3.6" ry="2" fill="#fb7185" />
+    <!-- Joues roses bien visibles -->
+    <circle cx="27" cy="60" r="5.5" fill="#f7a8d8" />
+    <circle cx="73" cy="60" r="5.5" fill="#f7a8d8" />
+
+    <!-- Grande bouche ouverte souriante -->
+    <path d="M41 60 Q50 78 59 60 Q50 65 41 60 Z" fill="#3b2a6b" />
+    <path d="M45 65.5 Q50 73.5 55 65.5 Q50 68.5 45 65.5 Z" fill="#e15f94" />
 
     <!-- Pieds -->
-    <ellipse cx="38" cy="94" rx="8.5" ry="5" fill="#6d28d9" />
-    <ellipse cx="62" cy="94" rx="8.5" ry="5" fill="#6d28d9" />
+    <ellipse cx="38" cy="92" rx="8.5" ry="5" fill="#7c3aed" />
+    <ellipse cx="62" cy="92" rx="8.5" ry="5" fill="#7c3aed" />
   </svg>
 </template>
 

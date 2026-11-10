@@ -10,8 +10,17 @@
             {{ apparence.avatar }}
           </span>
           <div class="min-w-0">
-            <p class="truncate text-[1.05rem] font-extrabold text-[#2d2a45]">{{ apparence.avatarNom }}</p>
-            <p class="text-[0.85rem] font-medium text-slate-400">C'est toi !</p>
+            <input
+              class="w-full rounded-xl border-2 border-transparent bg-transparent px-1 py-0.5 text-[1.05rem] font-extrabold text-[#2d2a45] transition-colors outline-none hover:border-purple-100 focus:border-purple-400"
+              :value="progression.pseudo"
+              maxlength="20"
+              placeholder="Ton prénom"
+              aria-label="Ton prénom"
+              @change="changerNom"
+            />
+            <p class="px-1 text-[0.8rem] font-medium text-slate-400">
+              {{ apparence.avatarNom }} — c'est toi ! Écris ton prénom ici.
+            </p>
           </div>
         </div>
 
@@ -22,12 +31,27 @@
           Personnaliser mon animal
         </button>
 
-        <button
-          class="mt-2 w-full rounded-full py-1.5 text-[0.75rem] font-bold text-slate-400 transition-colors hover:bg-slate-50 hover:text-purple-600"
+        <!-- Thème actuel : petit autocollant de l'image + lien pour changer -->
+        <div
+          class="mt-3 flex items-center gap-3 rounded-2xl bg-[#f7f4fe] p-2.5"
           @click="$emit('personnaliser', 'themes')"
+          role="button"
+          tabindex="0"
         >
-          {{ themeActuel().emoji }} Changer le thème du jeu
-        </button>
+          <span
+            class="h-12 w-12 shrink-0 rounded-xl border-[3px] border-white bg-cover bg-center shadow ring-1 ring-purple-100"
+            :style="{ backgroundImage: themeActuel().image ? `url('${themeActuel().image}'), ${themeActuel().apercu}` : themeActuel().apercu }"
+            aria-hidden="true"
+          ></span>
+          <span class="min-w-0 flex-1">
+            <span class="block truncate text-[0.8rem] font-bold text-[#2d2a45]">
+              {{ themeActuel().nom }}
+            </span>
+            <span class="block text-[0.72rem] font-semibold text-purple-600">
+              Changer le thème du jeu
+            </span>
+          </span>
+        </div>
       </div>
     </div>
 
@@ -55,6 +79,12 @@
 <script setup>
 import MascotMilo from './MascotMilo.vue'
 import { apparence, themeActuel } from '../stores/apparence'
+import { progression, choisirPseudo } from '../stores/progression'
 
 defineEmits(['personnaliser'])
+
+function changerNom(evenement) {
+  choisirPseudo(evenement.target.value)
+  evenement.target.value = progression.pseudo
+}
 </script>

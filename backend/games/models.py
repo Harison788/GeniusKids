@@ -9,6 +9,9 @@ class Game(models.Model):
         ("nombres", "Nombres"),
         ("memoire", "Mémoire"),
         ("creativite", "Créativité"),
+        ("musique", "Musique"),
+        ("reflexion", "Réflexion"),
+        ("langues", "Langues"),
     ]
 
     title = models.CharField(max_length=60)

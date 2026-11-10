@@ -14,6 +14,11 @@ export default createRouter({
     { path: '/points', name: 'points', component: () => import('./views/PointsView.vue') },
     { path: '/fruits', name: 'fruits', component: () => import('./views/FruitsView.vue') },
     { path: '/puzzle', name: 'puzzle', component: () => import('./views/PuzzleView.vue') },
+    { path: '/piano', name: 'piano', component: () => import('./views/PianoView.vue') },
+    { path: '/echecs', name: 'echecs', component: () => import('./views/EchecsView.vue') },
+    { path: '/sudoku', name: 'sudoku', component: () => import('./views/SudokuView.vue') },
+    { path: '/mots', name: 'mots', component: () => import('./views/MotsCroisesView.vue') },
+    { path: '/langue', name: 'langue', component: () => import('./views/LangueView.vue') },
   ],
   scrollBehavior(to) {
     if (to.hash) {

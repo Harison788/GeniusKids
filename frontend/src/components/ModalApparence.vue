@@ -78,20 +78,18 @@
             : 'border-transparent bg-slate-50 hover:bg-purple-50'"
           @click="choisirTheme(theme.id)"
         >
+          <!-- Vignette autocollant : l'image du thème, bien visible -->
           <span
-            class="grid h-12 w-12 shrink-0 place-items-center rounded-full text-2xl shadow-inner"
-            :style="{ backgroundImage: theme.apercu }"
-          >
-            {{ theme.emoji }}
-          </span>
+            class="h-14 w-14 shrink-0 rounded-xl border-[3px] border-white bg-cover bg-center shadow-md ring-1 ring-purple-100"
+            :style="{ backgroundImage: theme.image ? `url('${theme.image}'), ${theme.apercu}` : theme.apercu }"
+            aria-hidden="true"
+          ></span>
           <span class="flex-1">
             <span class="block font-extrabold text-slate-800">{{ theme.nom }}</span>
-            <span v-if="apparence.theme !== 'violet'" class="block text-xs font-semibold text-slate-400">
+            <span v-if="theme.image" class="block text-xs font-semibold text-slate-400">
               Décor complet et coloré
             </span>
-            <span v-else class="block text-xs font-semibold text-slate-400">
-              Décor de la maquette
-            </span>
+            <span v-else class="block text-xs font-semibold text-slate-400">Décor de la maquette</span>
           </span>
           <span v-if="apparence.theme === theme.id" class="text-sm font-extrabold text-purple-600">
             Choisi ✓

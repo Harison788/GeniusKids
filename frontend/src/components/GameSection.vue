@@ -2,7 +2,7 @@
   <div>
     <!-- Titre de section (sous-titre sur la même ligne, comme la maquette) -->
     <div class="mb-4 flex flex-wrap items-baseline gap-x-10 gap-y-1">
-      <h2 class="text-[1.4rem] font-extrabold text-[#6d28d9]">À toi de jouer !</h2>
+      <h2 id="titre-section" class="text-[1.4rem] font-extrabold text-[#6d28d9]">À toi de jouer !</h2>
       <p class="text-[0.85rem] font-medium text-slate-400">Un petit jeu, de grandes découvertes.</p>
     </div>
 
@@ -62,12 +62,23 @@ import { RouterLink } from 'vue-router'
 import API from '../api'
 import GameIllustration from './GameIllustration.vue'
 
-const filtres = [
-  { cle: 'tous', label: 'Tous les jeux' },
-  { cle: 'nombres', label: 'Nombres' },
-  { cle: 'memoire', label: 'Mémoire' },
-  { cle: 'creativite', label: 'Créativité' },
-]
+const LIBELLES = {
+  nombres: 'Nombres',
+  memoire: 'Mémoire',
+  creativite: 'Créativité',
+  musique: 'Musique',
+  reflexion: 'Réflexion',
+  langues: 'Langues',
+}
+
+/* Les filtres s'adaptent aux catégories réellement présentes. */
+const filtres = computed(() => {
+  const presentes = [...new Set(jeux.value.map((jeu) => jeu.category))]
+  return [
+    { cle: 'tous', label: 'Tous les jeux' },
+    ...presentes.map((cle) => ({ cle, label: LIBELLES[cle] || cle })),
+  ]
+})
 
 const filtreActif = ref('tous')
 const jeux = ref([])
@@ -85,6 +96,11 @@ onMounted(async () => {
       { slug: 'puzzle', title: 'Puzzles', description: 'Assemble et découvre', category: 'creativite', emoji: '🧩', couleur_carte: '#d9f0e6' },
       { slug: 'kakuro', title: 'Kakuro', description: 'À toi de calculer !', category: 'nombres', emoji: '🔢', couleur_carte: '#ddd5fa' },
       { slug: 'comptage', title: 'Comptage', description: 'Compte avec nous', category: 'nombres', emoji: '🧮', couleur_carte: '#fdf2cc' },
+      { slug: 'piano', title: 'Piano', description: 'Joue et répète la mélodie !', category: 'musique', emoji: '🎹', couleur_carte: '#fbe0e8' },
+      { slug: 'echecs', title: 'Échecs', description: 'Bats Milo aux échecs !', category: 'reflexion', emoji: '♟️', couleur_carte: '#dfe7f5' },
+      { slug: 'sudoku', title: 'Sudoku', description: 'Complète la grille magique', category: 'reflexion', emoji: '🧠', couleur_carte: '#dcf3e3' },
+      { slug: 'mots', title: 'Mots croisés', description: 'Trouve tous les mots cachés', category: 'langues', emoji: '🔤', couleur_carte: '#fdf0cc' },
+      { slug: 'langue', title: 'Langue', description: "Le français et l'anglais", category: 'langues', emoji: '🌍', couleur_carte: '#fde2ef' },
     ]
   } finally {
     chargement.value = false

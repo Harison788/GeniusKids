@@ -93,6 +93,84 @@
       <circle cx="64" cy="77" r="8" fill="#8b5cf6" />
     </template>
 
+    <!-- Piano : clavier avec touches blanches et noires -->
+    <template v-else-if="slug === 'piano'">
+      <rect x="10" y="10" width="80" height="18" rx="9" fill="#c084fc" opacity="0.6" />
+      <g v-for="(x, i) in [14, 30, 46, 62, 78]" :key="x">
+        <rect :x="x" y="38" width="14" height="46" rx="4" fill="#ffffff" stroke="#d8cef5" stroke-width="2.5" />
+      </g>
+      <rect x="23.5" y="38" width="9" height="26" rx="3" fill="#3b2a6b" />
+      <rect x="39.5" y="38" width="9" height="26" rx="3" fill="#3b2a6b" />
+      <circle cx="55" cy="73" r="5" fill="#fbbf24" />
+      <rect x="69.5" y="38" width="9" height="26" rx="3" fill="#3b2a6b" />
+    </template>
+
+    <!-- Échecs : échiquier + tour violette et pion doré -->
+    <template v-else-if="slug === 'echecs'">
+      <g>
+        <rect x="12" y="34" width="18" height="18" rx="3" fill="#ddd6fe" />
+        <rect x="30" y="34" width="18" height="18" rx="3" fill="#ffffff" stroke="#c4b5fd" stroke-width="2" />
+        <rect x="48" y="34" width="18" height="18" rx="3" fill="#ddd6fe" />
+        <rect x="66" y="34" width="18" height="18" rx="3" fill="#ffffff" stroke="#c4b5fd" stroke-width="2" />
+        <rect x="12" y="52" width="18" height="18" rx="3" fill="#ffffff" stroke="#c4b5fd" stroke-width="2" />
+        <rect x="30" y="52" width="18" height="18" rx="3" fill="#ddd6fe" />
+        <rect x="48" y="52" width="18" height="18" rx="3" fill="#ffffff" stroke="#c4b5fd" stroke-width="2" />
+        <rect x="66" y="52" width="18" height="18" rx="3" fill="#ddd6fe" />
+        <rect x="12" y="70" width="18" height="18" rx="3" fill="#ddd6fe" />
+        <rect x="30" y="70" width="18" height="18" rx="3" fill="#ffffff" stroke="#c4b5fd" stroke-width="2" />
+        <rect x="48" y="70" width="18" height="18" rx="3" fill="#ddd6fe" />
+        <rect x="66" y="70" width="18" height="18" rx="3" fill="#ffffff" stroke="#c4b5fd" stroke-width="2" />
+      </g>
+      <!-- Tour violette posée sur une case -->
+      <g transform="translate(13, 33)">
+        <path d="M8 0 L24 0 L24 6 L20 8.5 L20 14 L12 14 L12 8.5 L8 6 Z" fill="#7c3aed" />
+        <rect x="5" y="14" width="22" height="5" rx="2.5" fill="#7c3aed" />
+      </g>
+      <!-- Pion doré -->
+      <g transform="translate(65, 56)">
+        <circle cx="15" cy="9" r="8" fill="#fbbf24" />
+        <path d="M6 30 L6 25 Q15 18 24 25 L24 30 Z" fill="#fbbf24" />
+        <rect x="5" y="29" width="20" height="5" rx="2.5" fill="#f59e0b" />
+      </g>
+      <circle cx="90" cy="12" r="4" fill="#a78bfa" />
+    </template>
+
+    <!-- Sudoku : grille 2x2 avec chiffres -->
+    <template v-else-if="slug === 'sudoku'">
+      <rect x="14" y="24" width="72" height="72" rx="10" fill="#ffffff" stroke="#a7d9b8" stroke-width="3.5" />
+      <line x1="50" y1="24" x2="50" y2="96" stroke="#a7d9b8" stroke-width="2.5" />
+      <line x1="14" y1="60" x2="86" y2="60" stroke="#a7d9b8" stroke-width="2.5" />
+      <rect x="30" y="38" width="14" height="14" rx="4" fill="#dcf3e3" />
+      <rect x="60" y="72" width="14" height="14" rx="4" fill="#dcf3e3" />
+      <text x="43" y="70" font-size="26" font-weight="bold" fill="#166534" font-family="Segoe UI, sans-serif" text-anchor="middle">1</text>
+      <text x="70" y="54" font-size="26" font-weight="bold" fill="#166534" font-family="Segoe UI, sans-serif" text-anchor="middle">4</text>
+      <circle cx="92" cy="18" r="4" fill="#34d399" />
+    </template>
+
+    <!-- Mots croisés : cases avec lettres -->
+    <template v-else-if="slug === 'mots'">
+      <g v-for="(x, i) in [18, 42, 66]" :key="x">
+        <rect :x="x" y="26" width="20" height="20" rx="4" fill="#ffffff" stroke="#e8d48a" stroke-width="2.5" />
+      </g>
+      <rect x="18" y="50" width="20" height="20" rx="4" fill="#fdf0cc" />
+      <rect x="42" y="50" width="20" height="20" rx="4" fill="#ffffff" stroke="#e8d48a" stroke-width="2.5" />
+      <rect x="66" y="50" width="20" height="20" rx="4" fill="#fdf0cc" />
+      <text x="52" y="66" font-size="17" font-weight="bold" fill="#a16207" font-family="Segoe UI, sans-serif" text-anchor="middle">A</text>
+      <text x="28" y="43" font-size="17" font-weight="bold" fill="#a16207" font-family="Segoe UI, sans-serif" text-anchor="middle">C</text>
+      <circle cx="90" cy="14" r="5" fill="#fbbf24" />
+      <rect x="18" y="74" width="20" height="20" rx="4" fill="#ffffff" stroke="#e8d48a" stroke-width="2.5" />
+    </template>
+
+    <!-- Langue : bulles de parole FR / EN -->
+    <template v-else-if="slug === 'langue'">
+      <circle cx="40" cy="40" r="26" fill="#8b5cf6" />
+      <path d="M32 64 L28 76 L42 66 Z" fill="#8b5cf6" />
+      <text x="40" y="47" font-size="19" font-weight="bold" fill="#ffffff" font-family="Segoe UI, sans-serif" text-anchor="middle">FR</text>
+      <circle cx="68" cy="58" r="22" fill="#fbbf24" />
+      <path d="M76 78 L82 88 L68 80 Z" fill="#fbbf24" />
+      <text x="68" y="65" font-size="16" font-weight="bold" fill="#7c4a03" font-family="Segoe UI, sans-serif" text-anchor="middle">EN</text>
+    </template>
+
     <!-- Repli générique : dé -->
     <template v-else>
       <rect x="20" y="20" width="60" height="60" rx="14" fill="#8b5cf6" />

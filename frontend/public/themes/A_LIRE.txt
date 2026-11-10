@@ -1,0 +1,7 @@
+﻿Deposez ici les images des themes avec ces noms exacts :
+- fleurs.jpg   -> champ de tulipes
+- voitures.jpg -> grenouille dans la voiture
+- espace.jpg   -> planetes
+- ocean.jpg    -> raie et poissons kawaii
+- deco.jpg     -> petit dejeuner gouauche (autocollant bonus)
+Formats acceptes aussi : .png (renommez la reference dans styles.css et apparence.js si besoin).
