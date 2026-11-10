@@ -1,6 +1,6 @@
 {
-  "name": "GeniusKids",
-  "short_name": "GeniusKids",
+  "name": "les petits curieux",
+  "short_name": "Curieux",
   "description": "Jeux de mathématiques pour les enfants de 4 à 11 ans : quiz, memory, associations, kakuro, puzzle...",
   "start_url": "/",
   "display": "standalone",
