@@ -10,8 +10,9 @@
 }
 
 /* ===== Thèmes : le fond de la page entière. Violet doux = défaut. ===== */
+/* Fond de la page : blanc comme la maquette (les thèmes le recolorent). */
 .appli-fond {
-  background-color: #f8fafc; /* slate-50, l'ambiance de la maquette */
+  background-color: #ffffff;
   transition: background-color 0.4s;
 }
 

@@ -1,20 +1,20 @@
 <template>
   <div>
-    <!-- Titre de section -->
-    <div class="mb-4">
-      <h2 class="text-2xl font-extrabold text-purple-900">À toi de jouer !</h2>
-      <p class="text-sm font-semibold text-slate-500">Un petit jeu, de grandes découvertes.</p>
+    <!-- Titre de section (sous-titre sur la même ligne, comme la maquette) -->
+    <div class="mb-4 flex flex-wrap items-baseline gap-x-10 gap-y-1">
+      <h2 class="text-[1.4rem] font-extrabold text-[#6d28d9]">À toi de jouer !</h2>
+      <p class="text-[0.85rem] font-medium text-slate-400">Un petit jeu, de grandes découvertes.</p>
     </div>
 
     <!-- Filtres par catégorie -->
-    <div class="mb-5 flex flex-wrap gap-2">
+    <div class="mb-5 flex flex-wrap gap-2.5">
       <button
         v-for="f in filtres"
         :key="f.cle"
-        class="rounded-full px-4 py-2 text-sm font-bold transition-colors"
+        class="rounded-full px-4 py-1.5 text-[0.82rem] font-bold transition-colors"
         :class="filtreActif === f.cle
-          ? 'bg-purple-700 text-white'
-          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'"
+          ? 'bg-[#6d28d9] text-white'
+          : 'bg-[#ececf3] text-slate-600 hover:bg-[#e2e2ec]'"
         @click="filtreActif = f.cle"
       >
         {{ f.label }}
@@ -26,24 +26,24 @@
       <article
         v-for="jeu in jeuxAffiches"
         :key="jeu.slug"
-        class="flex flex-col items-center rounded-3xl p-5 text-center transition-transform hover:-translate-y-1"
-        :style="{ backgroundColor: jeu.couleur_carte || '#f3f0ff' }"
+        class="flex flex-col rounded-[20px] p-4 pb-5 transition-transform hover:-translate-y-0.5"
+        :style="{ backgroundColor: jeu.couleur_carte || '#e9e4fb' }"
       >
-        <!-- Illustration -->
+        <!-- Illustration centrée, textes alignés à gauche comme la maquette -->
         <img
           v-if="jeu.image_url"
           :src="jeu.image_url"
           :alt="jeu.title"
-          class="h-20 w-20 rounded-2xl object-cover"
+          class="mx-auto my-2 h-20 w-20 object-cover"
         />
-        <GameIllustration v-else :slug="jeu.slug" :taille="88" />
+        <GameIllustration v-else :slug="jeu.slug" :taille="84" class="my-3" />
 
-        <h3 class="mt-4 text-lg font-extrabold text-slate-800">{{ jeu.title }}</h3>
-        <p class="mt-0.5 text-sm font-semibold text-slate-500">{{ jeu.description }}</p>
+        <h3 class="mt-2 text-[1.05rem] font-extrabold text-[#2d2a45]">{{ jeu.title }}</h3>
+        <p class="mt-0.5 text-[0.85rem] font-medium text-slate-600">{{ jeu.description }}</p>
 
         <RouterLink
           :to="`/${jeu.slug}`"
-          class="mt-4 w-full rounded-full border border-purple-100 bg-white py-2.5 text-sm font-extrabold text-purple-700 shadow-sm transition-transform hover:scale-[1.02]"
+          class="mt-4 w-full rounded-full bg-white py-2.5 text-center text-[0.9rem] font-extrabold text-[#6d28d9] shadow-[0_3px_10px_rgba(90,60,160,0.14)] transition-shadow hover:shadow-[0_5px_16px_rgba(90,60,160,0.2)]"
         >
           Jouer
         </RouterLink>
@@ -77,14 +77,14 @@ onMounted(async () => {
   try {
     jeux.value = await API.chargerJeux()
   } catch {
-    // Backend éteint : liste de secours pour que l'enfant puisse jouer quand même.
+    // Backend éteint : liste de secours avec les couleurs de la maquette.
     jeux.value = [
-      { slug: 'quiz', title: 'Quiz Maths', description: 'Joue avec les nombres', category: 'nombres', emoji: '➕', couleur_carte: '#f3f0ff' },
-      { slug: 'memory', title: 'Memory', description: 'Trouve les paires', category: 'memoire', emoji: '⭐', couleur_carte: '#e9e4fb' },
-      { slug: 'fruits', title: 'Fusion des fruits', description: 'Fais le plein de fruits !', category: 'creativite', emoji: '🍑', couleur_carte: '#fdeedd' },
-      { slug: 'puzzle', title: 'Puzzles', description: 'Assemble et découvre', category: 'creativite', emoji: '🧩', couleur_carte: '#ddf2e9' },
-      { slug: 'kakuro', title: 'Kakuro', description: 'À toi de calculer !', category: 'nombres', emoji: '🔢', couleur_carte: '#e9e4fb' },
-      { slug: 'comptage', title: 'Comptage', description: 'Compte avec nous', category: 'nombres', emoji: '🧮', couleur_carte: '#fef3c7' },
+      { slug: 'quiz', title: 'Quiz Maths', description: 'Joue avec les nombres', category: 'nombres', emoji: '➕', couleur_carte: '#e3d7fa' },
+      { slug: 'memory', title: 'Memory', description: 'Trouve les paires', category: 'memoire', emoji: '⭐', couleur_carte: '#ded9fb' },
+      { slug: 'fruits', title: 'Fusion des fruits', description: 'Fais le plein de fruits !', category: 'creativite', emoji: '🍑', couleur_carte: '#fbe3d3' },
+      { slug: 'puzzle', title: 'Puzzles', description: 'Assemble et découvre', category: 'creativite', emoji: '🧩', couleur_carte: '#d9f0e6' },
+      { slug: 'kakuro', title: 'Kakuro', description: 'À toi de calculer !', category: 'nombres', emoji: '🔢', couleur_carte: '#ddd5fa' },
+      { slug: 'comptage', title: 'Comptage', description: 'Compte avec nous', category: 'nombres', emoji: '🧮', couleur_carte: '#fdf2cc' },
     ]
   } finally {
     chargement.value = false

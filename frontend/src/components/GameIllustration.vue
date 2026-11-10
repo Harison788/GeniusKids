@@ -24,16 +24,15 @@
       </g>
     </template>
 
-    <!-- Memory : deux cartes à jouer avec étoiles -->
+    <!-- Memory : carte violette à étoile + carte blanche à étoile dorée -->
     <template v-else-if="slug === 'memory'">
-      <g transform="rotate(-14 30 50)">
-        <rect x="10" y="22" width="36" height="48" rx="10" fill="#fbbf24" />
-        <path d="M28 36 L31.5 46 L42 46 L33.5 52.5 L36.5 63 L28 56.5 L19.5 63 L22.5 52.5 L14 46 L24.5 46 Z" fill="#ffffff" />
+      <g transform="rotate(-14 30 55)">
+        <rect x="12" y="26" width="40" height="52" rx="10" fill="#8b5cf6" />
+        <path d="M32 40 L35.5 50 L46 50 L37.5 56.5 L40.5 67 L32 60.5 L23.5 67 L26.5 56.5 L18 50 L28.5 50 Z" fill="#ffffff" />
       </g>
-      <g transform="rotate(10 62 55)">
-        <rect x="42" y="30" width="40" height="52" rx="10" fill="#8b5cf6" />
-        <rect x="47" y="35" width="30" height="42" rx="7" fill="#ffffff" />
-        <path d="M62 44 L65 53 L74.5 53 L66.7 58.8 L69.6 68 L62 62.2 L54.4 68 L57.3 58.8 L49.5 53 L59 53 Z" fill="#fbbf24" />
+      <g transform="rotate(10 64 52)">
+        <rect x="44" y="20" width="40" height="52" rx="10" fill="#ffffff" stroke="#e9e4fb" stroke-width="3" />
+        <path d="M64 34 L67.3 44 L78 44 L69.5 50.5 L72.6 61 L64 54.7 L55.4 61 L58.5 50.5 L50 44 L60.7 44 Z" fill="#fbbf24" />
       </g>
     </template>
 
@@ -64,16 +63,16 @@
       <circle cx="14" cy="20" r="4" fill="#34d399" />
     </template>
 
-    <!-- Kakuro : grille de calcul -->
+    <!-- Kakuro : mini-grille avec cases violettes et pastille dorée -->
     <template v-else-if="slug === 'kakuro'">
-      <rect x="14" y="18" width="30" height="30" rx="7" fill="#c4b5fd" />
-      <rect x="50" y="18" width="30" height="30" rx="7" fill="#ede9fe" />
-      <rect x="14" y="54" width="30" height="30" rx="7" fill="#8b5cf6" />
-      <rect x="50" y="54" width="30" height="30" rx="7" fill="#ffffff" stroke="#c4b5fd" stroke-width="3" />
-      <circle cx="29" cy="33" r="4" fill="#ffffff" />
-      <circle cx="65" cy="33" r="4" fill="#8b5cf6" />
-      <circle cx="29" cy="69" r="4" fill="#ffffff" />
-      <circle cx="65" cy="69" r="4" fill="#8b5cf6" />
+      <circle cx="86" cy="12" r="4" fill="#c4b5fd" />
+      <rect x="14" y="18" width="32" height="32" rx="8" fill="#c4b5fd" />
+      <path d="M18 44 L42 24" stroke="#ffffff" stroke-width="4" stroke-linecap="round" />
+      <rect x="54" y="18" width="32" height="32" rx="8" fill="#ffffff" stroke="#ddd5fa" stroke-width="3" />
+      <rect x="14" y="56" width="32" height="32" rx="8" fill="#8b5cf6" />
+      <circle cx="30" cy="72" r="5" fill="#ffffff" />
+      <rect x="54" y="56" width="32" height="32" rx="8" fill="#ffffff" stroke="#ddd5fa" stroke-width="3" />
+      <circle cx="70" cy="66" r="5" fill="#fbbf24" />
     </template>
 
     <!-- Comptage : boulier -->

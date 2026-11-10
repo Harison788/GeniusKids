@@ -3,7 +3,7 @@
     <div class="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3 sm:px-6">
       <!-- Logo -->
       <RouterLink to="/" class="flex items-center gap-2.5">
-        <span class="grid h-10 w-10 place-items-center rounded-xl bg-purple-100">
+        <span class="grid h-10 w-10 place-items-center rounded-full bg-[#f5efff]">
           <MascotMilo :taille="30" />
         </span>
         <span class="text-lg font-extrabold text-purple-700">les petits curieux</span>
@@ -40,7 +40,7 @@
       <div class="ml-auto flex items-center gap-3 sm:ml-0">
         <RouterLink
           to="/recompenses"
-          class="flex items-center gap-1.5 rounded-full border-2 border-amber-300 bg-amber-50 px-4 py-1.5 text-sm font-extrabold text-amber-700"
+          class="flex items-center gap-1.5 rounded-full bg-[#fdf3c9] px-4 py-1.5 text-[0.95rem] font-extrabold text-[#8a6d1a]"
           title="Tes étoiles"
         >
           <EtoileSvg :taille="18" /> {{ progression.etoiles }}

@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-6">
     <WelcomeBanner />
 
-    <div class="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
+    <div class="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_265px]">
       <GameSection />
       <UserSidebar @personnaliser="ouvrirModal" />
     </div>

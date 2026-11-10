@@ -1,5 +1,5 @@
 <template>
-  <footer class="border-t border-purple-100 bg-white">
+  <footer class="border-t border-slate-100 bg-white">
     <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-5 sm:px-6">
       <div class="flex flex-wrap items-baseline gap-x-3">
         <span class="font-extrabold text-purple-700">les petits curieux</span>
