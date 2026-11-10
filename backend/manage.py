@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Utilitaire de ligne de commande de Django pour « Les Petits Génies »."""
+"""Utilitaire de ligne de commande de Django pour GeniusKids."""
 import os
 import sys
 

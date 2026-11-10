@@ -3,7 +3,7 @@
     <header class="entete">
       <RouterLink to="/" class="logo">
         <span class="logo-emoji">🧮</span>
-        <span class="logo-texte">Les Petits Génies</span>
+        <span class="logo-texte">GeniusKids</span>
       </RouterLink>
       <nav class="menu">
         <RouterLink to="/quiz" class="lien-menu">Quiz</RouterLink>

@@ -1,4 +1,4 @@
-# 🧮 Les Petits Génies
+# GeniusKids
 
 Application de jeux de mathématiques pour les enfants de **4 à 11 ans**, construite avec **Django** (API) et **Vue.js 3** (interface). Installable sur mobile en tant que PWA.
 

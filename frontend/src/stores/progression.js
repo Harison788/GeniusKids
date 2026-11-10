@@ -1,7 +1,7 @@
 /* Progression simple, sans inscription : tout est gardé dans le navigateur. */
 import { reactive } from 'vue'
 
-const CLE = 'petits-genies-progression'
+const CLE = 'geniuskids-progression'
 
 function vide() {
   return { pseudo: 'Agent mystère', niveau: 1, etoiles: 0, meilleures: {} }

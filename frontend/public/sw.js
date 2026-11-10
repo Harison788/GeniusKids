@@ -1,5 +1,5 @@
 /* Service worker minimal : cache à l'exécution pour l'installation PWA. */
-const CACHE = 'petits-genies-v1'
+const CACHE = 'geniuskids-v2'
 
 self.addEventListener('install', () => self.skipWaiting())
 

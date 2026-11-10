@@ -1,4 +1,4 @@
-"""Générateurs d'activités et scores pour « Les Petits Génies ».
+"""Générateurs d'activités et scores pour GeniusKids.
 
 Trois niveaux, de 4 à 11 ans :
   - niveau 1 (Écureuil 🐿️)  : 4-6 ans, additions jusqu'à 10, dénombrement ;

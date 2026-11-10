@@ -1,10 +1,10 @@
-"""Configuration Django pour « Les Petits Génies »."""
+"""Configuration Django pour GeniusKids."""
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Clé de développement — à changer pour la production !
-SECRET_KEY = "django-insecure-petits-genies-changez-moi-en-production"
+SECRET_KEY = "django-insecure-geniuskids-changez-moi-en-production"
 
 DEBUG = True
 

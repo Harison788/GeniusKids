@@ -1,7 +1,7 @@
 {
-  "name": "Les Petits Génies",
-  "short_name": "PetitsGénies",
-  "description": "Jeux de mathématiques pour les enfants de 4 à 11 ans : quiz, memory, associations et comptage.",
+  "name": "GeniusKids",
+  "short_name": "GeniusKids",
+  "description": "Jeux de mathématiques pour les enfants de 4 à 11 ans : quiz, memory, associations, kakuro, puzzle...",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
