@@ -1,34 +1,45 @@
 <template>
-  <section class="recompenses">
-    <h1 class="titre-page">Mes récompenses</h1>
+  <section class="mx-auto max-w-3xl">
+    <h1 class="text-2xl font-extrabold text-purple-900">Mes récompenses</h1>
 
-    <div class="carte-total">
-      <span class="emoji-total">🏆</span>
-      <div class="texte-total">
-        <p class="nombre-total">{{ progression.etoiles }} étoiles</p>
-        <p class="sous-total">Gagnées en jouant, à ton rythme !</p>
+    <!-- Trophée total -->
+    <div class="mt-4 flex items-center gap-4 rounded-3xl bg-gradient-to-r from-amber-300 to-amber-400 p-5 text-amber-900 shadow-sm">
+      <span class="text-5xl leading-none">🏆</span>
+      <div>
+        <p class="text-xl font-extrabold">{{ progression.etoiles }} étoiles</p>
+        <p class="text-sm font-bold text-amber-800/80">Gagnées en jouant, à ton rythme !</p>
       </div>
     </div>
 
-    <template v-if="liste.length > 0">
-      <div class="liste-records">
-        <div v-for="entree in liste" :key="entree.cle" class="rangee-record">
-          <span class="emoji-record">{{ entree.emoji }}</span>
-          <span class="titre-record">{{ entree.titre }}</span>
-          <span class="niveau-record">{{ entree.nomNiveau }}</span>
-          <span class="points-record">{{ entree.points }} pts</span>
-          <span class="etoiles-record">{{ '⭐'.repeat(entree.etoiles) }}</span>
-        </div>
+    <!-- Liste des records -->
+    <div
+      v-if="liste.length > 0"
+      class="mt-4 divide-y divide-purple-50 rounded-3xl border border-purple-100 bg-white shadow-sm"
+    >
+      <div
+        v-for="entree in liste"
+        :key="entree.cle"
+        class="flex items-center gap-3 px-5 py-3"
+      >
+        <span class="text-2xl leading-none">{{ entree.emoji }}</span>
+        <span class="flex-1 font-extrabold text-slate-800">{{ entree.titre }}</span>
+        <span class="text-xs font-bold text-slate-400">{{ entree.nomNiveau }}</span>
+        <span class="font-extrabold text-purple-600">{{ entree.points }} pts</span>
+        <span class="w-20 text-right tracking-wide">{{ '⭐'.repeat(entree.etoiles) }}</span>
       </div>
-    </template>
+    </div>
 
-    <template v-else>
-      <div class="carte-vide">
-        <p class="emoji-vide">🌱</p>
-        <p>Pas encore de record. Lance un jeu et reviens brandir ton trophée !</p>
-        <RouterLink to="/" class="btn-gros">Choisir un jeu</RouterLink>
-      </div>
-    </template>
+    <!-- Vide -->
+    <div v-else class="mt-4 flex flex-col items-center gap-3 rounded-3xl border border-purple-100 bg-white p-8 text-center shadow-sm">
+      <span class="text-5xl">🌱</span>
+      <p class="font-bold text-slate-600">Pas encore de record. Lance un jeu et reviens brandir ton trophée !</p>
+      <RouterLink
+        to="/"
+        class="rounded-full bg-purple-700 px-8 py-3 font-extrabold text-white transition-colors hover:bg-purple-800"
+      >
+        Choisir un jeu
+      </RouterLink>
+    </div>
   </section>
 </template>
 
@@ -38,14 +49,14 @@ import { RouterLink } from 'vue-router'
 import { progression } from '../stores/progression'
 
 const TITRES = {
-  quiz: { titre: 'Quiz de Maths', emoji: '🧮' },
-  comptage: { titre: 'Comptage', emoji: '🔢' },
-  memory: { titre: 'Memory', emoji: '🃏' },
+  quiz: { titre: 'Quiz Maths', emoji: '➕' },
+  comptage: { titre: 'Comptage', emoji: '🧮' },
+  memory: { titre: 'Memory', emoji: '⭐' },
   associations: { titre: 'Associations', emoji: '🔗' },
-  kakuro: { titre: 'Kakuro', emoji: '🧩' },
+  kakuro: { titre: 'Kakuro', emoji: '🔢' },
   points: { titre: 'Relie les Points', emoji: '✏️' },
-  fruits: { titre: 'Fusion des Fruits', emoji: '🍓' },
-  puzzle: { titre: 'Puzzle', emoji: '🖼️' },
+  fruits: { titre: 'Fusion des fruits', emoji: '🍑' },
+  puzzle: { titre: 'Puzzles', emoji: '🧩' },
 }
 
 const NOMS_NIVEAUX = { 1: 'Écureuil', 2: 'Renard', 3: 'Hibou' }

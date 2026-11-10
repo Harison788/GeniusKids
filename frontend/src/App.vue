@@ -1,121 +1,38 @@
 <template>
-  <div class="appli">
-    <header class="entete">
-      <RouterLink to="/" class="logo">
-        <span class="logo-rond">🧮</span>
-        <span class="logo-texte">GeniusKids</span>
-      </RouterLink>
+  <div class="appli-fond flex min-h-screen flex-col font-sans text-slate-800">
+    <Navbar />
 
-      <nav class="menu">
-        <RouterLink to="/" class="lien-menu" exact-active-class="est-lieu">
-          <span class="icone-menu">🏠</span> Accueil
-        </RouterLink>
-        <a href="/#jeux" class="lien-menu" @click="allerAuxJeux">
-          <span class="icone-menu">🎮</span> Jeux
-        </a>
-        <RouterLink to="/recompenses" class="lien-menu" active-class="est-lieu">
-          <span class="icone-menu">🏆</span> Récompenses
-        </RouterLink>
-      </nav>
+    <!-- Décor du thème choisi (fleurs, voitures...) en fond de page -->
+    <span class="deco-theme gauche" aria-hidden="true"></span>
+    <span class="deco-theme droite" aria-hidden="true"></span>
 
-      <div class="zone-profil">
-        <RouterLink to="/recompenses" class="badge-etoiles" title="Tes étoiles">
-          <span class="etoile-badge">⭐</span> {{ progression.etoiles }}
-        </RouterLink>
-
-        <div class="menu-profil">
-          <button class="bouton-profil" @click="$event => menuOuvert = !menuOuvert">
-            <span class="avatar-mini">{{ apparence.avatar }}</span>
-            Mon profil
-            <span class="fleche-profil">▾</span>
-          </button>
-
-          <div v-if="menuOuvert" class="panneau-profil">
-            <button class="option-profil" @click="ouvrirModal('profil')">
-              <span class="option-emoji">{{ apparence.avatar }}</span>
-              Changer mon avatar
-            </button>
-            <button class="option-profil" @click="ouvrirModal('themes')">
-              <span class="option-emoji">{{ themeActuel().emoji }}</span>
-              Changer mon thème
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <main class="contenu">
+    <main class="relative z-[1] mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6">
       <RouterView />
     </main>
 
-    <footer class="pied">
-      <div class="pied-marque">
-        <span class="logo-texte">GeniusKids</span>
-        <span class="pied-devise">Grandir, un jeu à la fois.</span>
-      </div>
-      <div class="pied-liens">
-        <span class="lien-pied" title="Un espace pour les parents arrive bientôt">Espace parents</span>
-        <span class="lien-pied" title="De l'aide arrive bientôt">Aide</span>
-      </div>
-    </footer>
-
-    <ModalApparence
-      v-if="modalOuverte"
-      :onglet-initial="ongletModal"
-      @fermer="modalOuverte = false"
-    />
+    <Footer />
   </div>
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
-import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
-import ModalApparence from './components/ModalApparence.vue'
-import { progression } from './stores/progression'
-import { apparence, themeActuel } from './stores/apparence'
+import { watch, onMounted } from 'vue'
+import { RouterView } from 'vue-router'
+import Navbar from './components/Navbar.vue'
+import Footer from './components/Footer.vue'
+import { apparence, chargerApparenceDistante } from './stores/apparence'
+import { chargerProgressionDistante } from './stores/progression'
 
-const route = useRoute()
-const router = useRouter()
-const menuOuvert = ref(false)
-const modalOuverte = ref(false)
-const ongletModal = ref('profil')
-
-function ouvrirModal(onglet) {
-  menuOuvert.value = false
-  ongletModal.value = onglet
-  modalOuverte.value = true
-}
-
-function allerAuxJeux(evenement) {
-  evenement.preventDefault()
-  menuOuvert.value = false
-  router.push('/')
-  setTimeout(() => {
-    document.getElementById('jeux')?.scrollIntoView({ behavior: 'smooth' })
-  }, 150)
-}
-
-/* Le thème se lit dans <body data-theme="..."> pour colorer tout le fond. */
+/* Le thème choisi colore le fond de la page entière. */
 function appliquerTheme() {
   document.body.dataset.theme = apparence.theme
 }
 
-/* Ferme le menu déroulant quand on clique ailleurs. */
-function fermerMenu(evenement) {
-  if (!evenement.target.closest('.menu-profil')) menuOuvert.value = false
-}
-
-/* Ferme le menu quand on change de page. */
-watch(() => route.path, () => { menuOuvert.value = false })
-
 watch(() => apparence.theme, appliquerTheme)
 
-onMounted(() => {
+onMounted(async () => {
   appliquerTheme()
-  document.addEventListener('click', fermerMenu)
-})
-
-onBeforeUnmount(() => {
-  document.removeEventListener('click', fermerMenu)
+  await chargerApparenceDistante()
+  await chargerProgressionDistante()
+  appliquerTheme()
 })
 </script>

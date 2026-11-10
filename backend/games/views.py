@@ -1,4 +1,4 @@
-"""Générateurs d'activités et scores pour GeniusKids.
+"""Générateurs d'activités et scores pour les petits curieux.
 
 Trois niveaux, de 4 à 11 ans :
   - niveau 1 (Écureuil 🐿️)  : 4-6 ans, additions jusqu'à 10, dénombrement ;
@@ -7,13 +7,14 @@ Trois niveaux, de 4 à 11 ans :
 """
 
 import random
+import uuid
 
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from .models import Score
-from .serializers import ScoreSerializer
+from .models import Game, Score, UserProfile
+from .serializers import GameSerializer, ProfilSerializer, ScoreSerializer
 
 NIVEAUX_VALIDES = {1, 2, 3}
 NOMBRE_PAR_DEFAUT = 8
@@ -326,6 +327,65 @@ def api_kakuro(request):
 
 
 # ---------------------------------------------------------------------------
+# Catalogue des jeux (liste dynamique pilotée par le modèle Game)
+# ---------------------------------------------------------------------------
+
+@api_view(["GET"])
+def api_jeux(request):
+    jeux = Game.objects.filter(actif=True)
+    categorie = request.query_params.get("categorie")
+    if categorie:
+        jeux = jeux.filter(category=categorie)
+    return Response(GameSerializer(jeux, many=True).data)
+
+
+# ---------------------------------------------------------------------------
+# Profil enfant (nom, étoiles, avatar, thème) — sans inscription obligatoire.
+# Le navigateur envoie son jeton (en-tête X-Profil-Jeton) ; le profil est
+# créé à la première visite. Si un User Django est authentifié, le profil
+# est rattaché à son compte.
+# ---------------------------------------------------------------------------
+
+def _utilisateur(request):
+    """Le User Django connecté, ou None (les enfants jouent sans compte)."""
+    user = getattr(request, "user", None)
+    return user if getattr(user, "is_authenticated", False) else None
+
+
+def _profil_depuis_requete(request):
+    jeton = request.headers.get("X-Profil-Jeton", "")
+    profil = None
+    if jeton:
+        profil = UserProfile.objects.filter(jeton=jeton).first()
+    if profil is None:
+        jeton = jeton or uuid.uuid4().hex
+        profil = UserProfile.objects.create(
+            jeton=jeton,
+            user=_utilisateur(request),
+        )
+    elif request.user is not None and profil.user is None:
+        utilisateur = _utilisateur(request)
+        if utilisateur is not None:
+            profil.user = utilisateur
+            profil.save()
+    return profil
+
+
+@api_view(["GET", "PATCH"])
+def api_profil(request):
+    profil = _profil_depuis_requete(request)
+
+    if request.method == "PATCH":
+        serializer = ProfilSerializer(profil, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+    reponse = Response(ProfilSerializer(profil).data)
+    reponse["X-Profil-Jeton"] = profil.jeton
+    return reponse
+
+
+# ---------------------------------------------------------------------------
 # Scores (profil simple, sans inscription)
 # ---------------------------------------------------------------------------
 
@@ -334,7 +394,13 @@ def api_scores(request):
     if request.method == "POST":
         serializer = ScoreSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        score = serializer.save()
+        jeton = request.headers.get("X-Profil-Jeton", "")
+        if jeton:
+            profil = UserProfile.objects.filter(jeton=jeton).first()
+            if profil:
+                score.profil = profil
+                score.save(update_fields=["profil"])
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     queryset = Score.objects.all()

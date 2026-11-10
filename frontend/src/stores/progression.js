@@ -1,10 +1,12 @@
-/* Progression simple, sans inscription : tout est gardé dans le navigateur. */
+/* Progression simple, sans inscription : gardée dans le navigateur
+   et synchronisée avec le profil Django (UserProfile). */
 import { reactive } from 'vue'
+import API from '../api'
 
 const CLE = 'geniuskids-progression'
 
 function vide() {
-  return { pseudo: 'Agent mystère', niveau: 1, etoiles: 0, meilleures: {} }
+  return { pseudo: 'Petit curieux', niveau: 1, etoiles: 0, meilleures: {} }
 }
 
 function charger() {
@@ -26,9 +28,28 @@ export function enregistrer() {
   }
 }
 
+/* Envoie nom + étoiles au profil Django (sans bloquer l'interface). */
+function synchroniserProfil() {
+  API.majProfil({ nom: progression.pseudo, etoiles: progression.etoiles })
+}
+
+/* Récupère le profil distant (étoiles gagnées sur un autre appareil, etc.). */
+export async function chargerProgressionDistante() {
+  try {
+    const profil = await API.chargerProfil()
+    if (profil.nom && profil.nom !== 'Petit curieux') progression.pseudo = profil.nom
+    if (profil.etoiles > progression.etoiles) progression.etoiles = profil.etoiles
+    enregistrer()
+    return profil
+  } catch {
+    return null
+  }
+}
+
 export function ajouterEtoiles(nombre) {
   progression.etoiles += nombre
   enregistrer()
+  synchroniserProfil()
 }
 
 export function meilleure(jeu) {
@@ -43,11 +64,13 @@ export function noterScore(jeu, niveau, points, etoiles) {
   }
   progression.etoiles += etoiles
   enregistrer()
+  synchroniserProfil()
 }
 
 export function choisirPseudo(pseudo) {
-  progression.pseudo = (pseudo || '').trim().slice(0, 20) || 'Agent mystère'
+  progression.pseudo = (pseudo || '').trim().slice(0, 20) || 'Petit curieux'
   enregistrer()
+  synchroniserProfil()
 }
 
 export function choisirNiveau(niveau) {

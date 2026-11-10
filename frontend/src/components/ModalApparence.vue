@@ -1,49 +1,58 @@
 <template>
-  <div class="modal-fond" @click.self="$emit('fermer')">
-    <div class="modal-carte" role="dialog" aria-label="Personnaliser ton profil">
-      <button class="modal-fermer" @click="$emit('fermer')" aria-label="Fermer">✕</button>
+  <div
+    class="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-900/40 p-4 pt-10"
+    @click.self="$emit('fermer')"
+  >
+    <div class="relative w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl">
+      <button
+        class="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full bg-purple-50 font-extrabold text-purple-600 transition-colors hover:bg-purple-100"
+        aria-label="Fermer"
+        @click="$emit('fermer')"
+      >
+        ✕
+      </button>
 
-      <div class="modal-onglets">
+      <!-- Onglets -->
+      <div class="mb-5 flex gap-2">
         <button
-          class="onglet"
-          :class="{ 'est-active': onglet === 'profil' }"
-          @click="onglet = 'profil'"
+          v-for="o in ['profil', 'themes']"
+          :key="o"
+          class="flex-1 rounded-full py-2.5 text-sm font-extrabold transition-colors"
+          :class="onglet === o ? 'bg-purple-700 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'"
+          @click="onglet = o"
         >
-          Mon profil
-        </button>
-        <button
-          class="onglet"
-          :class="{ 'est-active': onglet === 'themes' }"
-          @click="onglet = 'themes'"
-        >
-          Mes thèmes
+          {{ o === 'profil' ? 'Mon profil' : 'Mes thèmes' }}
         </button>
       </div>
 
       <!-- Onglet profil : prénom + avatar -->
-      <div v-if="onglet === 'profil'" class="modal-section">
-        <div class="modal-apercu">
-          <span class="apercu-avatar">{{ apparence.avatar }}</span>
-          <div class="apercu-textes">
+      <div v-if="onglet === 'profil'" class="flex flex-col gap-5">
+        <div class="flex items-center gap-4 rounded-2xl bg-[#f3f0ff] p-4">
+          <span class="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-white text-3xl shadow-sm">
+            {{ apparence.avatar }}
+          </span>
+          <div class="min-w-0 flex-1">
             <input
-              class="champ-pseudo-modal"
-              :value="pseudoLocal"
+              class="w-full rounded-xl border-2 border-purple-200 px-3 py-2 font-bold text-slate-700 outline-none transition-colors focus:border-purple-500"
+              :value="progression.pseudo"
               maxlength="20"
               aria-label="Ton prénom"
               @change="changerPseudo"
             />
-            <p class="apercu-nom">{{ apparence.avatarNom }}</p>
+            <p class="mt-1 text-sm font-bold text-slate-500">{{ apparence.avatarNom }}</p>
           </div>
         </div>
 
-        <div v-for="groupe in AVATARS" :key="groupe.groupe" class="groupe-avatar">
-          <p class="titre-groupe">{{ groupe.groupe }}</p>
-          <div class="liste-avatars">
+        <div v-for="groupe in AVATARS" :key="groupe.groupe">
+          <p class="mb-2 text-sm font-extrabold text-purple-700">{{ groupe.groupe }}</p>
+          <div class="grid grid-cols-6 gap-2 sm:grid-cols-7">
             <button
               v-for="avatar in groupe.liste"
               :key="avatar.emoji"
-              class="tuile-avatar"
-              :class="{ 'est-choisie': apparence.avatar === avatar.emoji }"
+              class="grid aspect-square place-items-center rounded-2xl border-2 text-2xl transition-colors"
+              :class="apparence.avatar === avatar.emoji
+                ? 'border-purple-600 bg-white'
+                : 'border-transparent bg-slate-50 hover:bg-purple-50'"
               :title="avatar.nom"
               @click="choisirAvatar(avatar)"
             >
@@ -54,24 +63,32 @@
       </div>
 
       <!-- Onglet thèmes : le décor du jeu -->
-      <div v-else class="modal-section">
-        <p class="note-theme">
+      <div v-else class="flex flex-col gap-3">
+        <p class="text-sm font-semibold text-slate-500">
           Le thème change les couleurs et le décor derrière les jeux.
           Le violet doux est celui de départ.
         </p>
-        <div class="liste-themes">
-          <button
-            v-for="theme in THEMES"
-            :key="theme.id"
-            class="carte-theme"
-            :class="{ 'est-choisie': apparence.theme === theme.id }"
-            @click="choisirTheme(theme.id)"
+
+        <button
+          v-for="theme in THEMES"
+          :key="theme.id"
+          class="flex items-center gap-4 rounded-2xl border-2 p-3 text-left transition-colors"
+          :class="apparence.theme === theme.id
+            ? 'border-purple-600 bg-white'
+            : 'border-transparent bg-slate-50 hover:bg-purple-50'"
+          @click="choisirTheme(theme.id)"
+        >
+          <span
+            class="grid h-12 w-12 shrink-0 place-items-center rounded-full text-2xl"
+            :style="{ backgroundColor: theme.apercu }"
           >
-            <span class="apercu-theme" :style="{ background: theme.apercu }">{{ theme.emoji }}</span>
-            <span class="nom-theme">{{ theme.nom }}</span>
-            <span class="coche-theme" v-if="apparence.theme === theme.id">Choisi ✓</span>
-          </button>
-        </div>
+            {{ theme.emoji }}
+          </span>
+          <span class="flex-1 font-extrabold text-slate-800">{{ theme.nom }}</span>
+          <span v-if="apparence.theme === theme.id" class="text-sm font-extrabold text-purple-600">
+            Choisi ✓
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -79,19 +96,17 @@
 
 <script setup>
 import { ref } from 'vue'
-import { apparence, AVATARS, THEMES, choisirAvatar, choisirTheme } from '../stores/apparence'
+import { AVATARS, THEMES, apparence, choisirAvatar, choisirTheme } from '../stores/apparence'
 import { progression, choisirPseudo, enregistrer } from '../stores/progression'
 
 const props = defineProps({ ongletInitial: { type: String, default: 'profil' } })
 defineEmits(['fermer'])
 
 const onglet = ref(props.ongletInitial)
-const pseudoLocal = ref(progression.pseudo)
 
 function changerPseudo(evenement) {
   choisirPseudo(evenement.target.value)
   evenement.target.value = progression.pseudo
-  pseudoLocal.value = progression.pseudo
   enregistrer()
 }
 </script>
