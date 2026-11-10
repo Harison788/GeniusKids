@@ -18,6 +18,14 @@ Application de jeux de mathématiques pour les enfants de **4 à 11 ans**, const
 3 niveaux selon l'âge : 🐿️ Écureuil (4-6 ans), 🦊 Renard (6-8 ans), 🦉 Hibou (9-11 ans).
 La progression (pseudo, étoiles, records) est enregistrée localement dans le navigateur — **sans inscription**.
 
+## Mon coin à moi : avatars et thèmes
+
+Chaque enfant personnalise son espace depuis l'en-tête (« Mon profil ») ou la carte du « Mon coin à moi » :
+
+- **Avatar au choix** : animaux (renard, panda, licorne...), personnages (garçon, fille, super-héros, fée...), fleurs et nature.
+- **Thèmes visuels** : violet doux (par défaut), Jardin de fleurs 🌸, Monde des voitures 🚗, Espace étoilé 🚀, Fond des océans 🐠 — le décor derrière les jeux change comme l'enfant le veut.
+- **Page Récompenses** : trophée d'étoiles total et liste des records par jeu et par niveau.
+
 ## Structure
 
 ```

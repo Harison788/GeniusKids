@@ -5,6 +5,7 @@ export default createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', name: 'accueil', component: AccueilView },
+    { path: '/recompenses', name: 'recompenses', component: () => import('./views/RecompensesView.vue') },
     { path: '/quiz', name: 'quiz', component: () => import('./views/QuizView.vue') },
     { path: '/comptage', name: 'comptage', component: () => import('./views/ComptageView.vue') },
     { path: '/memory', name: 'memory', component: () => import('./views/MemoryView.vue') },
@@ -14,4 +15,14 @@ export default createRouter({
     { path: '/fruits', name: 'fruits', component: () => import('./views/FruitsView.vue') },
     { path: '/puzzle', name: 'puzzle', component: () => import('./views/PuzzleView.vue') },
   ],
+  scrollBehavior(to) {
+    if (to.hash) {
+      return new Promise((resoudre) => {
+        setTimeout(() => {
+          resoudre({ el: to.hash, behavior: 'smooth' })
+        }, 120)
+      })
+    }
+    return { top: 0 }
+  },
 })

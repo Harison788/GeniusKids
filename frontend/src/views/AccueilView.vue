@@ -1,91 +1,122 @@
 <template>
-  <section class="accueil">
-    <div class="carte-accueil">
-      <h1 class="titre-accueil">Salut {{ progression.pseudo }} !</h1>
-      <div class="rangee-profil">
-        <input
-          class="champ-pseudo"
-          :value="progression.pseudo"
-          maxlength="20"
-          @change="changerPseudo"
-          aria-label="Ton prénom"
-        />
-        <div class="badge-etoiles grand">⭐ {{ progression.etoiles }} étoiles</div>
+  <section class="accueil-nouveau">
+    <!-- Bannière de bienvenue -->
+    <div class="banniere">
+      <span class="avatar-banniere">{{ apparence.avatar }}</span>
+      <div class="textes-banniere">
+        <h1 class="titre-banniere">Bonjour {{ progression.pseudo }} !</h1>
+        <p class="question-banniere">Prêt à t'amuser ?</p>
+        <p class="phrase-banniere">Apprendre en s'amusant, à ton rythme.</p>
       </div>
-
-      <h2 class="sous-titre">Choisis ton niveau</h2>
-      <div class="grille-niveaux">
-        <button
-          v-for="niveau in niveaux"
-          :key="niveau.valeur"
-          class="carte-niveau"
-          :class="{ 'est-active': progression.niveau === niveau.valeur }"
-          @click="choisirNiveau(niveau.valeur)"
-        >
-          <span class="emoji-niveau">{{ niveau.emoji }}</span>
-          <span class="nom-niveau">{{ niveau.nom }}</span>
-          <span class="age-niveau">{{ niveau.ages }}</span>
-        </button>
+      <div class="carte-etoiles-banniere">
+        <p class="ligne-etoiles-banniere"><span class="etoile-grand">⭐</span> {{ progression.etoiles }} étoiles</p>
+        <p class="encouragement">Bravo, {{ progression.pseudo }} !</p>
       </div>
     </div>
 
-    <!-- Univers 1 : Apprendre -->
-    <div class="entete-univers apprendre">
-      <span class="badge-univers">Apprendre</span>
-      <p class="sous-titre-univers">Les jeux qui font travailler le cerveau</p>
-    </div>
-    <div class="grille-jeux">
-      <RouterLink
-        v-for="jeu in jeuxApprendre"
-        :key="jeu.chemin"
-        :to="jeu.chemin"
-        class="carte-jeu"
-        :style="{ '--couleur': jeu.couleur }"
-      >
-        <span class="emoji-jeu">{{ jeu.emoji }}</span>
-        <span class="titre-jeu-carte">{{ jeu.titre }}</span>
-        <span class="description-jeu">{{ jeu.description }}</span>
-        <span class="record-jeu" v-if="meilleure(jeu.jeu)">
-          Record : {{ meilleure(jeu.jeu).points }} pts
-        </span>
-        <span class="record-jeu" v-else>Joue pour la première fois !</span>
-      </RouterLink>
+    <div class="bloc-jeux">
+      <div class="colonne-principale">
+        <!-- "À toi de jouer !" : titres + filtres -->
+        <div class="entete-jeux">
+          <div>
+            <h2 class="titre-section">À toi de jouer !</h2>
+            <p class="sous-section">Un petit jeu, de grandes découvertes.</p>
+          </div>
+        </div>
+        <div class="grille-filtres">
+          <button
+            v-for="f in filtres"
+            :key="f"
+            class="filtre"
+            :class="{ 'est-actif': filtreActif === f }"
+            @click="filtreActif = f"
+          >
+            {{ f }}
+          </button>
+        </div>
+
+        <!-- Grille des jeux filtrée -->
+        <div id="jeux" class="grille-jeux-nouvelle">
+          <RouterLink
+            v-for="jeu in jeuxAffiches"
+            :key="jeu.chemin"
+            :to="jeu.chemin"
+            class="carte-jeu-nouvelle"
+            :style="{ '--fond-carte': jeu.fond }"
+          >
+            <span class="icone-carte-jeu">{{ jeu.emoji }}</span>
+            <span class="titre-jeu-carte">{{ jeu.titre }}</span>
+            <span class="description-jeu">{{ jeu.description }}</span>
+            <span class="record-jeu" v-if="meilleure(jeu.jeu)">
+              Record : {{ meilleure(jeu.jeu).points }} pts
+            </span>
+            <span class="bouton-jouer">Jouer</span>
+          </RouterLink>
+        </div>
+        <p v-if="jeuxAffiches.length === 0" class="vide-filtre">Aucun jeu dans cette catégorie pour l'instant.</p>
+      </div>
+
+      <!-- "Mon coin à moi" : l'espace personnel -->
+      <aside class="mon-coin">
+        <h2 class="titre-coin">Mon coin à moi</h2>
+
+        <div class="carte-coin">
+          <span class="avatar-coin">{{ apparence.avatar }}</span>
+          <div class="textes-coin">
+            <p class="nom-coin">{{ apparence.avatarNom }}</p>
+            <p class="apres-coin">C'est toi !</p>
+          </div>
+        </div>
+
+        <div class="boutons-coin">
+          <button class="bouton-personnaliser" @click="ouvrirModal('profil')">
+            Personnaliser mon animal
+          </button>
+          <button class="bouton-theme-coin" @click="ouvrirModal('themes')">
+            {{ themeActuel().emoji }} Changer le thème
+          </button>
+        </div>
+
+        <div class="carte-mon-niveau">
+          <p class="titre-dans-carte">Mon niveau</p>
+          <div class="choix-niveaux-coin">
+            <button
+              v-for="n in niveaux"
+              :key="n.valeur"
+              class="pastille-niveau"
+              :class="{ 'est-choisie': progression.niveau === n.valeur }"
+              @click="choisirNiveau(n.valeur)"
+            >
+              <span>{{ n.emoji }}</span>{{ n.nom }}
+            </button>
+          </div>
+        </div>
+
+        <div class="carte-bulle-mascotte">
+          <div class="bulle-mascotte">
+            <p class="titre-bulle-mascotte">Coucou, moi c'est Milo !</p>
+            <p class="texte-bulle-mascotte">Choisis un jeu et amuse-toi !</p>
+          </div>
+          <span class="mascotte-coin">🦄</span>
+          <p class="devise-mascotte">À chaque jeu, une découverte !</p>
+        </div>
+      </aside>
     </div>
 
-    <!-- Univers 2 : S'amuser -->
-    <div class="entete-univers plaisir">
-      <span class="badge-univers">S'amuser</span>
-      <p class="sous-titre-univers">Les jeux juste pour le plaisir</p>
-    </div>
-    <div class="grille-jeux">
-      <RouterLink
-        v-for="jeu in jeuxPlaisir"
-        :key="jeu.chemin"
-        :to="jeu.chemin"
-        class="carte-jeu"
-        :style="{ '--couleur': jeu.couleur }"
-      >
-        <span class="emoji-jeu">{{ jeu.emoji }}</span>
-        <span class="titre-jeu-carte">{{ jeu.titre }}</span>
-        <span class="description-jeu">{{ jeu.description }}</span>
-        <span class="record-jeu" v-if="meilleure(jeu.jeu)">
-          Record : {{ meilleure(jeu.jeu).points }} pts
-        </span>
-        <span class="record-jeu" v-else>Joue pour la première fois !</span>
-      </RouterLink>
-    </div>
+    <ModalApparence v-if="modalOuverte" :onglet-initial="ongletModal" @fermer="modalOuverte = false" />
   </section>
 </template>
 
 <script setup>
+import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import ModalApparence from '../components/ModalApparence.vue'
 import {
   progression,
   meilleure,
-  choisirPseudo,
   choisirNiveau,
-  enregistrer,
 } from '../stores/progression'
+import { apparence, themeActuel } from '../stores/apparence'
 
 const niveaux = [
   { valeur: 1, emoji: '🐿️', nom: 'Écureuil', ages: '4-6 ans' },
@@ -94,22 +125,29 @@ const niveaux = [
 ]
 
 const jeux = [
-  { chemin: '/quiz', jeu: 'quiz', emoji: '➕', titre: 'Quiz de Maths', description: 'Additions, soustractions, multiplications', couleur: '#219ebc', categorie: 'apprendre' },
-  { chemin: '/comptage', jeu: 'comptage', emoji: '🔢', titre: 'Comptage', description: 'Compte les objets et complète les suites', couleur: '#ffb703', categorie: 'apprendre' },
-  { chemin: '/memory', jeu: 'memory', emoji: '🃏', titre: 'Memory', description: 'Retourne les cartes et trouve les paires', couleur: '#fb8500', categorie: 'apprendre' },
-  { chemin: '/associations', jeu: 'associations', emoji: '🔗', titre: 'Associations', description: 'Relie ce qui va avec quoi', couleur: '#8e44ad', categorie: 'apprendre' },
-  { chemin: '/kakuro', jeu: 'kakuro', emoji: '🧊', titre: 'Kakuro', description: 'Chaque ligne et colonne fait la bonne somme', couleur: '#ef476f', categorie: 'apprendre' },
-  { chemin: '/points', jeu: 'points', emoji: '✏️', titre: 'Relie les Points', description: 'Suis les numéros et dessine le dessin secret', couleur: '#14967f', categorie: 'plaisir' },
-  { chemin: '/fruits', jeu: 'fruits', emoji: '🍓', titre: 'Fusion des Fruits', description: "Deux identiques deviennent un plus gros : 🍓+🍓→🍇, jusqu'à la 🍉", couleur: '#f3722c', categorie: 'plaisir' },
-  { chemin: '/puzzle', jeu: 'puzzle', emoji: '🧩', titre: 'Puzzle', description: 'Échange les pièces pour recomposer le dessin', couleur: '#5a7d2a', categorie: 'plaisir' },
+  { chemin: '/quiz', jeu: 'quiz', emoji: '➕', titre: 'Quiz de Maths', description: 'Joue avec les nombres', fond: '#ece5fd', categorie: 'nombres' },
+  { chemin: '/comptage', jeu: 'comptage', emoji: '🔢', titre: 'Comptage', description: 'Compte avec nous', fond: '#fdf3d7', categorie: 'nombres' },
+  { chemin: '/kakuro', jeu: 'kakuro', emoji: '➗', titre: 'Kakuro', description: 'À toi de calculer !', fond: '#ece5fd', categorie: 'nombres' },
+  { chemin: '/memory', jeu: 'memory', emoji: '🃏', titre: 'Memory', description: 'Trouve les paires', fond: '#e8e4fb', categorie: 'memoire' },
+  { chemin: '/associations', jeu: 'associations', emoji: '🔗', titre: 'Associations', description: 'Relie ce qui va ensemble', fond: '#e8e4fb', categorie: 'memoire' },
+  { chemin: '/fruits', jeu: 'fruits', emoji: '🍓', titre: 'Fusion des fruits', description: "Fais le plein de fruits !", fond: '#fdeedd', categorie: 'creativite' },
+  { chemin: '/puzzle', jeu: 'puzzle', emoji: '🧩', titre: 'Puzzles', description: 'Assemble et découvre', fond: '#dff2e9', categorie: 'creativite' },
+  { chemin: '/points', jeu: 'points', emoji: '✏️', titre: 'Relie les Points', description: 'Dessine le dessin secret', fond: '#dff2e9', categorie: 'creativite' },
 ]
 
-const jeuxApprendre = jeux.filter((jeu) => jeu.categorie === 'apprendre')
-const jeuxPlaisir = jeux.filter((jeu) => jeu.categorie === 'plaisir')
+const filtres = ['Tous les jeux', 'Nombres', 'Mémoire', 'Créativité']
+const filtreActif = ref('Tous les jeux')
+const modalOuverte = ref(false)
+const ongletModal = ref('profil')
 
-function changerPseudo(evenement) {
-  choisirPseudo(evenement.target.value)
-  evenement.target.value = progression.pseudo
-  enregistrer()
+function ouvrirModal(onglet) {
+  ongletModal.value = onglet
+  modalOuverte.value = true
 }
+
+const jeuxAffiches = computed(() => {
+  if (filtreActif.value === 'Tous les jeux') return jeux
+  const cles = { Nombres: 'nombres', Mémoire: 'memoire', Créativité: 'creativite' }
+  return jeux.filter((jeu) => jeu.categorie === cles[filtreActif.value])
+})
 </script>
