@@ -125,7 +125,8 @@ function choisirDroite(item) {
     const gaucheAppariee = colonneGauche.value.find((g) => g.id === item.id)
     if (gaucheAppariee) gaucheAppariee.apparie = true
     selection.value = null
-    message.value = 'Super !'    if (nbTrouvees.value === total.value) terminer()
+    message.value = 'Super !'
+    if (nbTrouvees.value === total.value) terminer()
   } else {
     selection.value = null
     message.value = '🤔 Essaie encore !'
