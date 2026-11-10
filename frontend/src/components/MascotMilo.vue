@@ -6,39 +6,44 @@
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     aria-hidden="true"
+    class="overflow-visible"
   >
-    <!-- Bras qui salue -->
-    <path
-      d="M78 38 C88 30 90 20 84 14"
-      stroke="#7c5cff"
-      stroke-width="9"
-      stroke-linecap="round"
-    />
-    <!-- Corps -->
-    <ellipse cx="48" cy="58" rx="34" ry="36" fill="#8b6cf7" />
-    <ellipse cx="48" cy="66" rx="24" ry="24" fill="#f3f0ff" />
-    <!-- Cornes -->
-    <path d="M30 28 C26 18 30 12 36 12 C38 18 36 24 33 30 Z" fill="#6d4df0" />
-    <path d="M66 28 C70 18 66 12 60 12 C58 18 60 24 63 30 Z" fill="#6d4df0" />
-    <!-- Yeux -->
-    <circle cx="38" cy="50" r="7.5" fill="#ffffff" />
-    <circle cx="58" cy="50" r="7.5" fill="#ffffff" />
-    <circle cx="39.5" cy="51" r="3.6" fill="#26244a" />
-    <circle cx="56.5" cy="51" r="3.6" fill="#26244a" />
-    <!-- Joues -->
-    <circle cx="31" cy="62" r="4.5" fill="#c7b6ff" opacity="0.8" />
-    <circle cx="65" cy="62" r="4.5" fill="#c7b6ff" opacity="0.8" />
-    <!-- Sourire -->
-    <path
-      d="M41 62 Q48 70 55 62"
-      stroke="#26244a"
-      stroke-width="3"
-      stroke-linecap="round"
-      fill="none"
-    />
+    <!-- Bras levé qui salue (3 petits doigts) -->
+    <path d="M75 55 C86 50 91 39 88 30" stroke="#8b5cf6" stroke-width="9" stroke-linecap="round" />
+    <g stroke="#8b5cf6" stroke-width="5" stroke-linecap="round">
+      <path d="M85 29 L83 20" />
+      <path d="M89 28 L91 19" />
+      <path d="M86 31 L93 26" />
+    </g>
+    <!-- Petit bras gauche -->
+    <path d="M24 66 C17 70 15 77 19 82" stroke="#8b5cf6" stroke-width="8" stroke-linecap="round" />
+
+    <!-- Corps dodu -->
+    <ellipse cx="50" cy="61" rx="31" ry="33" fill="#8b5cf6" />
+
+    <!-- Oreilles arrondies -->
+    <ellipse cx="33" cy="26" rx="7" ry="10" transform="rotate(-18 33 26)" fill="#7c3aed" />
+    <ellipse cx="67" cy="26" rx="7" ry="10" transform="rotate(18 67 26)" fill="#7c3aed" />
+
+    <!-- Grands yeux brillants -->
+    <ellipse cx="38" cy="48" rx="8.5" ry="9.5" fill="#ffffff" />
+    <ellipse cx="62" cy="48" rx="8.5" ry="9.5" fill="#ffffff" />
+    <circle cx="40" cy="51" r="4.2" fill="#2e1065" />
+    <circle cx="60" cy="51" r="4.2" fill="#2e1065" />
+    <circle cx="38.6" cy="49.4" r="1.4" fill="#ffffff" />
+    <circle cx="58.6" cy="49.4" r="1.4" fill="#ffffff" />
+
+    <!-- Joues roses -->
+    <circle cx="29" cy="62" r="5" fill="#c4b5fd" opacity="0.75" />
+    <circle cx="71" cy="62" r="5" fill="#c4b5fd" opacity="0.75" />
+
+    <!-- Bouche ouverte souriante avec langue -->
+    <path d="M42 65 Q50 77 58 65 Q50 69 42 65 Z" fill="#2e1065" />
+    <ellipse cx="50" cy="70.5" rx="3.6" ry="2" fill="#fb7185" />
+
     <!-- Pieds -->
-    <ellipse cx="36" cy="93" rx="9" ry="4.5" fill="#6d4df0" />
-    <ellipse cx="60" cy="93" rx="9" ry="4.5" fill="#6d4df0" />
+    <ellipse cx="38" cy="94" rx="8.5" ry="5" fill="#6d28d9" />
+    <ellipse cx="62" cy="94" rx="8.5" ry="5" fill="#6d28d9" />
   </svg>
 </template>
 

@@ -79,12 +79,20 @@
           @click="choisirTheme(theme.id)"
         >
           <span
-            class="grid h-12 w-12 shrink-0 place-items-center rounded-full text-2xl"
-            :style="{ backgroundColor: theme.apercu }"
+            class="grid h-12 w-12 shrink-0 place-items-center rounded-full text-2xl shadow-inner"
+            :style="{ backgroundImage: theme.apercu }"
           >
             {{ theme.emoji }}
           </span>
-          <span class="flex-1 font-extrabold text-slate-800">{{ theme.nom }}</span>
+          <span class="flex-1">
+            <span class="block font-extrabold text-slate-800">{{ theme.nom }}</span>
+            <span v-if="apparence.theme !== 'violet'" class="block text-xs font-semibold text-slate-400">
+              Décor complet et coloré
+            </span>
+            <span v-else class="block text-xs font-semibold text-slate-400">
+              Décor de la maquette
+            </span>
+          </span>
           <span v-if="apparence.theme === theme.id" class="text-sm font-extrabold text-purple-600">
             Choisi ✓
           </span>
