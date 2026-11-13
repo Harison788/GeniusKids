@@ -6,8 +6,8 @@
 
       <div class="rounded-[20px] border border-purple-100 bg-white p-4 shadow-sm">
         <div class="flex items-center gap-3">
-          <span class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#f5efff] text-[1.7rem] leading-none">
-            {{ apparence.avatar }}
+          <span class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#f5efff] leading-none">
+            <AvatarDessin :emoji="apparence.avatar" :taille="40" />
           </span>
           <div class="min-w-0">
             <input
@@ -78,6 +78,7 @@
 
 <script setup>
 import MascotMilo from './MascotMilo.vue'
+import AvatarDessin from './AvatarDessin.vue'
 import { apparence, themeActuel } from '../stores/apparence'
 import { progression, choisirPseudo } from '../stores/progression'
 

@@ -28,8 +28,8 @@
       <!-- Onglet profil : prénom + avatar -->
       <div v-if="onglet === 'profil'" class="flex flex-col gap-5">
         <div class="flex items-center gap-4 rounded-2xl bg-[#f3f0ff] p-4">
-          <span class="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-white text-3xl shadow-sm">
-            {{ apparence.avatar }}
+          <span class="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-white shadow-sm">
+            <AvatarDessin :emoji="apparence.avatar" :taille="46" />
           </span>
           <div class="min-w-0 flex-1">
             <input
@@ -49,14 +49,14 @@
             <button
               v-for="avatar in groupe.liste"
               :key="avatar.emoji"
-              class="grid aspect-square place-items-center rounded-2xl border-2 text-2xl transition-colors"
+              class="grid aspect-square place-items-center rounded-2xl border-2 transition-colors"
               :class="apparence.avatar === avatar.emoji
                 ? 'border-purple-600 bg-white'
-                : 'border-transparent bg-slate-50 hover:bg-purple-50'"
+                : 'border-transparent bg-[#f7f4fe] hover:bg-purple-50'"
               :title="avatar.nom"
               @click="choisirAvatar(avatar)"
             >
-              {{ avatar.emoji }}
+              <AvatarDessin :emoji="avatar.emoji" :taille="38" />
             </button>
           </div>
         </div>
@@ -104,6 +104,7 @@
 import { ref } from 'vue'
 import { AVATARS, THEMES, apparence, choisirAvatar, choisirTheme } from '../stores/apparence'
 import { progression, choisirPseudo, enregistrer } from '../stores/progression'
+import AvatarDessin from './AvatarDessin.vue'
 
 const props = defineProps({ ongletInitial: { type: String, default: 'profil' } })
 defineEmits(['fermer'])

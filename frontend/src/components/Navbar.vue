@@ -51,8 +51,8 @@
             class="flex items-center gap-2 rounded-full py-1.5 pl-1.5 pr-3 text-sm font-bold text-slate-700 transition-colors hover:bg-purple-50"
             @click="menuOuvert = !menuOuvert"
           >
-            <span class="grid h-9 w-9 place-items-center rounded-full bg-purple-100 text-xl leading-none">
-              {{ apparence.avatar }}
+            <span class="grid h-9 w-9 place-items-center rounded-full bg-[#f5efff] leading-none">
+              <AvatarDessin :emoji="apparence.avatar" :taille="30" />
             </span>
             Mon profil
             <svg width="10" height="10" viewBox="0 0 10 10" class="text-slate-400" fill="none">
@@ -70,7 +70,19 @@
               class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-bold text-slate-700 transition-colors hover:bg-purple-50"
               @click="option.action()"
             >
-              <span class="text-lg leading-none">{{ option.icone }}</span>
+              <span
+                v-if="option.type === 'avatar'"
+                class="h-7 w-7 shrink-0 rounded-full bg-[#f5efff] leading-none"
+              >
+                <AvatarDessin :emoji="apparence.avatar" :taille="26" />
+              </span>
+              <span
+                v-else-if="option.type === 'theme'"
+                class="h-7 w-7 shrink-0 rounded-lg border-2 border-white bg-cover bg-center shadow ring-1 ring-purple-100"
+                :style="{ backgroundImage: themeActuel().image ? `url('${themeActuel().image}'), ${themeActuel().apercu}` : themeActuel().apercu }"
+                aria-hidden="true"
+              ></span>
+              <span v-else class="text-lg leading-none">{{ option.icone }}</span>
               {{ option.label }}
             </button>
           </div>
@@ -95,6 +107,7 @@ import IconeMaison from './IconeMaison.vue'
 import IconeManette from './IconeManette.vue'
 import IconeTrophee from './IconeTrophee.vue'
 import EtoileSvg from './EtoileSvg.vue'
+import AvatarDessin from './AvatarDessin.vue'
 import { progression } from '../stores/progression'
 import { apparence, themeActuel } from '../stores/apparence'
 
@@ -111,8 +124,8 @@ function ouvrirModal(onglet) {
 }
 
 const options = computed(() => [
-  { label: 'Changer mon avatar', icone: apparence.avatar, action: () => ouvrirModal('profil') },
-  { label: 'Changer mon thème', icone: themeActuel().emoji, action: () => ouvrirModal('themes') },
+  { label: 'Changer mon avatar', type: 'avatar', action: () => ouvrirModal('profil') },
+  { label: 'Changer mon thème', type: 'theme', action: () => ouvrirModal('themes') },
 ])
 
 function allerAuxJeux() {

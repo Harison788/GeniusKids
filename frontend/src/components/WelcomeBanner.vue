@@ -2,10 +2,10 @@
   <div class="flex flex-wrap items-center gap-5 rounded-3xl bg-[#f2ecfa] p-6 sm:p-7">
     <!-- Avatar + textes -->
     <span
-      class="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-white text-4xl shadow-sm"
+      class="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-white shadow-sm"
       aria-hidden="true"
     >
-      {{ apparence.avatar }}
+      <AvatarDessin :emoji="apparence.avatar" :taille="54" />
     </span>
 
     <div class="min-w-0 flex-1">
@@ -34,4 +34,5 @@
 import { progression } from '../stores/progression'
 import { apparence } from '../stores/apparence'
 import EtoileSvg from './EtoileSvg.vue'
+import AvatarDessin from './AvatarDessin.vue'
 </script>
